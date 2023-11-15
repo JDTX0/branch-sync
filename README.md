@@ -54,7 +54,7 @@ jobs:
           node-version: 16
       - name: Opening pull request
         id: pull
-        uses: jdtx0/sync-branches@1.5.0
+        uses: jdtx0/branch-sync@1.5.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: "main"

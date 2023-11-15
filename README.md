@@ -1,6 +1,16 @@
-# sync-branches
+# Branch sync
 
-GitHub Action to sync one branch when another is updated.
+GitHub Action to sync one branch when another is updated. This is a fork of [https://github.com/TreTuna/sync-branches](sync-branches)
+as that project is unmaintained.
+
+## Changes from sync-branches
+
+- NodeJS changed to v16
+- Rebuilt code against latest actions toolkit to fix `set-output` deprecated warnings
+- Optimized code to search for existing PR's before opening a new one
+- Updated existing search PR code to look for a predefined title rather than simply
+using the source/target branch as that can pick up PR's that aren't created by the action.
+- Updated all dependencies/library versions
 
 ## Inputs
 
@@ -82,6 +92,8 @@ name: Sync
 on:
   push:
     branches:
+    # Change this to whatever branch you want this action to trigger on.
+    # Ideally it should match the "FROM_BRANCH" setting below.
       - main
 
 jobs:
@@ -90,16 +102,23 @@ jobs:
     name: Syncing branches
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 16
       - name: Opening pull request
         id: pull
-        uses: tretuna/sync-branches@1.5.0
+        uses: jdtx0/sync-branches@1.5.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: "main"
           TO_BRANCH: "develop"
 ```
+
+## Development
+
+For local development, you should first install all of the deps of the project by
+running `yarn install`
+
+You can then lint & build the project by simply running `yarn lint && yarn package`

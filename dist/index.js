@@ -30383,16 +30383,25 @@ async function run() {
 
     const octokit = new github.getOctokit(githubToken);
 
+    // Find all current open PR's that are from the source branch to the target branch
     const { data: currentPulls } = await octokit.rest.pulls.list({
       owner,
       repo,
+      state: "open",
+      head: `${owner}:${fromBranch}`,
+      base: toBranch,
     });
 
+    // Check if there's a current pull request for syncing our branches.
+    // First check if the title matches a custom provided pullRequestTitle,
+    // otherwise check if the title matches the default title.
     const currentPull = currentPulls.find((pull) => {
-      return pull.head.ref === fromBranch && pull.base.ref === toBranch;
+      return pull.title == pullRequestTitle ? pullRequestTitle : `sync: ${fromBranch} to ${toBranch}`;
     });
 
+    // If there's no current PR open, then go through the steps of creating one
     if (!currentPull) {
+      // Run content comparison (if enabled) to determine if we should create a PR
       let shouldCreatePullRequest = true;
       if (contentComparison) {
         shouldCreatePullRequest = await hasContentDifference(
@@ -30417,6 +30426,7 @@ async function run() {
           draft: pullRequestIsDraft,
         });
 
+        // Add reviewers/team reviewers if they're set in the inputs
         if (reviewers.length > 0 || team_reviewers.length > 0) {
           octokit.rest.pulls.requestReviewers({
             owner,
@@ -30427,6 +30437,7 @@ async function run() {
           });
         }
 
+        // Add labels if they're set in the inputs
         if (labels.length > 0) {
           octokit.rest.issues.addLabels({
             owner,
@@ -30435,7 +30446,7 @@ async function run() {
             labels
           })
         }
-
+        // Auto-merge the PR if it's enabled
         if (pullRequestAutoMergeMethod) {
           try {
             await octokit.rest.pulls.merge({
@@ -30462,6 +30473,7 @@ async function run() {
         );
       }
     } else {
+      // PR already exists, nothing to do. Just output a message.
       console.log(
         `There is already a pull request (${currentPull.number}) to ${toBranch} from ${fromBranch}.`,
         `You can view it here: ${currentPull.url}`

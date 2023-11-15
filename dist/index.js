@@ -30485,6 +30485,8 @@ async function run() {
       core.setOutput("PULL_REQUEST_NUMBER", currentPull.number.toString());
       core.summary.addLink(':rocket: Pull Request', currentPull.html_url.toString());
     }
+    // Write the summary buffer
+    core.summary.write({overwrite: true})
   } catch (error) {
     core.setFailed(error.message);
   }

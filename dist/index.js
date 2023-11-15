@@ -30467,7 +30467,8 @@ async function run() {
 
         core.setOutput("PULL_REQUEST_URL", pullRequest.html_url.toString());
         core.setOutput("PULL_REQUEST_NUMBER", pullRequest.number.toString());
-        core.summary.addLink(':rocket: Pull Request', pullRequest.html_url.toString());
+        core.summary.addRaw('Pull Request successfully created :rocket:', true)
+        core.summary.addLink(`${pullRequest.number}`, pullRequest.html_url.toString());
       } else {
         console.log(
           `There is no content difference between ${fromBranch} and ${toBranch}.`
@@ -30483,7 +30484,8 @@ async function run() {
 
       core.setOutput("PULL_REQUEST_URL", currentPull.html_url.toString());
       core.setOutput("PULL_REQUEST_NUMBER", currentPull.number.toString());
-      core.summary.addLink(':rocket: Pull Request', currentPull.html_url.toString());
+      core.summary.addRaw('Pull Request already exists', true)
+      core.summary.addLink(`${currentPull.number}`, currentPull.html_url.toString());
     }
     // Write the summary buffer
     core.summary.write({overwrite: true})

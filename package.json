@@ -6,12 +6,12 @@
   "author": "Tre Ammatuna <tre@tretuna.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tretuna/sync-branches/issues"
+    "url": "https://github.com/JDTX0/sync-branches/issues"
   },
-  "homepage": "https://github.com/tretuna/sync-branches#readme",
+  "homepage": "https://github.com/jdtx0/sync-branches#readme",
   "repository": {
     "type": "git",
-    "url": "git@github.com:TreTuna/sync-branches.git"
+    "url": "git@github.com:jdtx0/sync-branches.git"
   },
   "keywords": [
     "GitHub",

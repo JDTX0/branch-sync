@@ -6,6 +6,13 @@ This is a fork of [sync-branches](https://github.com/TreTuna/sync-branches)
 as that project is unmaintained. See the [CHANGELOG](./CHANGELOG.md) for more
 info on what has changed.
 
+## Required permissions
+
+By default, GitHub actions isn't allowed to create pull requests. You must allow
+actions to create pull requests in the settings of your repository. The setting
+can be found under `Settings -> Actions -> General` under `Workflow permissions`,
+just tick `Allow GitHub Actions to create and approve pull requests`
+
 ## Inputs
 
 :small_red_triangle: in an input name denotes required value.
@@ -40,6 +47,12 @@ on:
     # Change this to whatever branch you want this action to trigger on.
     # Ideally it should match the "FROM_BRANCH" setting below.
       - main
+
+permissions:
+  # Needed to read branches
+  contents: read
+  # Needed to create PR's
+  pull-requests: write
 
 jobs:
   sync-branches:

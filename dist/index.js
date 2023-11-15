@@ -30462,10 +30462,10 @@ async function run() {
         }
 
         console.log(
-          `Pull request (${pullRequest.number}) successfully created${isMerged ? ' and merged' : ' '}! You can view it here: ${pullRequest.url}`
+          `Pull request (${pullRequest.number}) successfully created${isMerged ? ' and merged' : ''}! You can view it here: ${pullRequest.html_url}`
         );
 
-        core.setOutput("PULL_REQUEST_URL", pullRequest.url.toString());
+        core.setOutput("PULL_REQUEST_URL", pullRequest.html_url.toString());
         core.setOutput("PULL_REQUEST_NUMBER", pullRequest.number.toString());
       } else {
         console.log(

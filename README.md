@@ -1,93 +1,34 @@
 # Branch sync
 
-GitHub Action to sync one branch when another is updated. This is a fork of [https://github.com/TreTuna/sync-branches](sync-branches)
-as that project is unmaintained.
-
-## Changes from sync-branches
-
-- NodeJS changed to v16
-- Rebuilt code against latest actions toolkit to fix `set-output` deprecated warnings
-- Optimized code to search for existing PR's before opening a new one
-- Updated existing search PR code to look for a predefined title rather than simply
-using the source/target branch as that can pick up PR's that aren't created by the action.
-- Updated all dependencies/library versions
+GitHub Action to sync one branch when another is updated. This is a fork of [sync-branches](https://github.com/TreTuna/sync-branches)
+as that project is unmaintained. See the [CHANGELOG](./CHANGELOG.md) for more
+info on what has changed.
 
 ## Inputs
 
-### `GITHUB_TOKEN`
-
-**Required** The token to be used for creating the pull request. Can be set to the one given for the workflow or another user.
-
-### `FROM_BRANCH`
-
-**Required** The branch you want to make the pull request from.
-
-### `TO_BRANCH`
-
-**Required** The branch you want to make the pull request to.
-
-### `PULL_REQUEST_TITLE`
-
-What you would like as the title of the pull request.
-
-Default: `sync: {FROM_BRANCH} to {TO_BRANCH}`
-
-### `PULL_REQUEST_BODY`
-
-What you would like in the body of the pull request.
-
-Default: `sync-branches: New code has just landed in {FROM_BRANCH} so let's bring {TO_BRANCH} up to speed!`
-
-### `PULL_REQUEST_IS_DRAFT`
-
-Set to `true` for the pull request to be opened as a draft.
-
-Default: `false`
-
-### `CONTENT_COMPARISON`
-
-Set to `true` to force checking content comparison between branches.
-No more empty pull requests being opened and triggering CI jobs.
-
-Default: `false`
-
-### `REVIEWERS`
-
-JSON array of GitHub user `login`s that will be requested to review the PR.
-
-Example: `'["tretuna"]'`
-
-Default: `[]`
-
-### `TEAM_REVIEWERS`
-
-JSON array of GitHub team `slug`s that will be requested to review the PR.
-
-Example: `'["js-team"]'`
-
-Default: `[]`
-
-### `PULL_REQUEST_AUTO_MERGE_METHOD`
-
-Set a merge method for auto merging.
-
-Options: `merge`, `squash`, `rebase`
-
-Default: `false`
+| Name                           | Description                                                                      | Required | Default                                                                                            | Example                     |
+| ------------------------------ | -------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------- | --------------------------- |
+| GITHUB_TOKEN                   | The token to be used for creating the pull request                               | Yes      |                                                                                                    | `${{secrets.GITHUB_TOKEN}}` |
+| FROM_BRANCH                    | The branch you want to make the pull request from                                | Yes      |                                                                                                    | `develop`                   |
+| TO_BRANCH                      | The branch you want to make the pull request to                                  | Yes      |                                                                                                    | `main`                      |
+| PULL_REQUEST_TITLE             | What you would like as the title of the pull request                             | No       | `sync: {FROM_BRANCH} to {TO_BRANCH}`                                                               |                             |
+| PULL_REQUEST_BODY              | What you would like as the body of the pull request                              | No       | `sync-branches: New code has just landed in {FROM_BRANCH} so let's bring {TO_BRANCH} up to speed!` |                             |
+| PULL_REQUEST_IS_DRAFT          | Whether to set the pull request as a draft                                       | No       | `false`                                                                                            |                             |
+| CONTENT_COMPARISON             | Check content between branches to prevent PR's with no changes from being opened | No       | `false`                                                                                            |                             |
+| REVIEWERS                      | JSON array of GitHub usernames to request as reviewers.                          | No       | `[]`                                                                                               | `'["tretuna"]'`             |
+| TEAM_REVIEWERS                 | JSON array of GitHub team names to request as reviewers.                         | No       | `[]`                                                                                               | `'["js-team"]'`             |
+| PULL_REQUEST_AUTO_MERGE_METHOD | Set a method for auto merging. Can be one of `merge`, `squash` or `rebase`       | No       | `false`                                                                                            |                             |
 
 ## Outputs
 
-### `PULL_REQUEST_URL`
-
-Set to the URL of either the pull request that was opened by this action or the one that was found to already be open between the two branches
-
-### `PULL_REQUEST_NUMBER`
-
-Pull request number from generated pull request or the currently open one
+| Name                | Description                                                                           |
+| ------------------- | ------------------------------------------------------------------------------------- |
+| PULL_REQUEST_URL    | Set to the URL of the created pull request, or existing pull request if one is found. |
+| PULL_REQUEST_NUMBER | Pull request number from the generated pull request or currently open one             |
 
 ## Example usage
 
-```YML
+```yaml
 name: Sync
 on:
   push:

@@ -30467,20 +30467,23 @@ async function run() {
 
         core.setOutput("PULL_REQUEST_URL", pullRequest.html_url.toString());
         core.setOutput("PULL_REQUEST_NUMBER", pullRequest.number.toString());
+        core.summary.addLink(':rocket: Pull Request', pullRequest.html_url.toString());
       } else {
         console.log(
           `There is no content difference between ${fromBranch} and ${toBranch}.`
         );
+        core.summary.addRaw(`There is no content difference between ${fromBranch} and ${toBranch}. Not creating a PR.`, true)
       }
     } else {
       // PR already exists, nothing to do. Just output a message.
       console.log(
         `There is already a pull request (${currentPull.number}) to ${toBranch} from ${fromBranch}.`,
-        `You can view it here: ${currentPull.url}`
+        `You can view it here: ${currentPull.html_url}`
       );
 
-      core.setOutput("PULL_REQUEST_URL", currentPull.url.toString());
+      core.setOutput("PULL_REQUEST_URL", currentPull.html_url.toString());
       core.setOutput("PULL_REQUEST_NUMBER", currentPull.number.toString());
+      core.summary.addLink(':rocket: Pull Request', currentPull.html_url.toString());
     }
   } catch (error) {
     core.setFailed(error.message);

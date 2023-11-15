@@ -6,20 +6,20 @@ info on what has changed.
 
 ## Inputs
 
-`*` in input name denotes required value.
+:small_red_triangle: in input name denotes required value.
 
-| Name                           | Description                                                                      | Required | Default                                                                                            | Example                     |
-| ------------------------------ | -------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------- | --------------------------- |
-| GITHUB_TOKEN *                   | The token to be used for creating the pull request                               | Yes      |                                                                                                    | `${{secrets.GITHUB_TOKEN}}` |
-| FROM_BRANCH *                    | The branch you want to make the pull request from                                | Yes      |                                                                                                    | `develop`                   |
-| TO_BRANCH *                      | The branch you want to make the pull request to                                  | Yes      |                                                                                                    | `main`                      |
-| PULL_REQUEST_TITLE               | What you would like as the title of the pull request                             | No       | `sync: {FROM_BRANCH} to {TO_BRANCH}`                                                               |                             |
-| PULL_REQUEST_BODY                | What you would like as the body of the pull request                              | No       | `sync-branches: New code has just landed in {FROM_BRANCH} so let's bring {TO_BRANCH} up to speed!` |                             |
-| PULL_REQUEST_IS_DRAFT            | Whether to set the pull request as a draft                                       | No       | `false`                                                                                            |                             |
-| CONTENT_COMPARISON               | Check content between branches to prevent PR's with no changes from being opened | No       | `false`                                                                                            |                             |
-| REVIEWERS                        | JSON array of GitHub usernames to request as reviewers.                          | No       | `[]`                                                                                               | `'["tretuna"]'`             |
-| TEAM_REVIEWERS                   | JSON array of GitHub team names to request as reviewers.                         | No       | `[]`                                                                                               | `'["js-team"]'`             |
-| PULL_REQUEST_AUTO_MERGE_METHOD   | Set a method for auto merging. Can be one of `merge`, `squash` or `rebase`       | No       | `false`                                                                                            |                             |
+| Name                             | Description                                                                      | Default                                                                                            | Example                     |
+| ------------------------------   | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------- |
+| GITHUB_TOKEN :small_red_triangle:                   | The token to be used for creating the pull request                               |                                                                                                    | `${{secrets.GITHUB_TOKEN}}` |
+| FROM_BRANCH :small_red_triangle:                    | The branch you want to make the pull request from                                |                                                                                                    | `develop`                   |
+| TO_BRANCH :small_red_triangle:                      | The branch you want to make the pull request to                                  |                                                                                                    | `main`                      |
+| PULL_REQUEST_TITLE               | What you would like as the title of the pull request                             | `sync: {FROM_BRANCH} to {TO_BRANCH}`                                                               |                             |
+| PULL_REQUEST_BODY                | What you would like as the body of the pull request                              | `sync-branches: New code has just landed in {FROM_BRANCH} so let's bring {TO_BRANCH} up to speed!` |                             |
+| PULL_REQUEST_IS_DRAFT            | Whether to set the pull request as a draft                                       | `false`                                                                                            |                             |
+| CONTENT_COMPARISON               | Check content between branches to prevent PR's with no changes from being opened | `false`                                                                                            |                             |
+| REVIEWERS                        | JSON array of GitHub usernames to request as reviewers.                          | `[]`                                                                                               | `'["tretuna"]'`             |
+| TEAM_REVIEWERS                   | JSON array of GitHub team names to request as reviewers.                         | `[]`                                                                                               | `'["js-team"]'`             |
+| PULL_REQUEST_AUTO_MERGE_METHOD   | Set a method for auto merging. Can be one of `merge`, `squash` or `rebase`       | `false`                                                                                            |                             |
 
 ## Outputs
 

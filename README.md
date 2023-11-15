@@ -40,6 +40,7 @@ Set to `true` to force checking content comparison between branches.
 No more empty pull requests being opened and triggering CI jobs.
 
 Default: `false`
+
 ### `REVIEWERS`
 
 JSON array of GitHub user `login`s that will be requested to review the PR.
@@ -47,6 +48,7 @@ JSON array of GitHub user `login`s that will be requested to review the PR.
 Example: `'["tretuna"]'`
 
 Default: `[]`
+
 ### `TEAM_REVIEWERS`
 
 JSON array of GitHub team `slug`s that will be requested to review the PR.
@@ -54,6 +56,7 @@ JSON array of GitHub team `slug`s that will be requested to review the PR.
 Example: `'["js-team"]'`
 
 Default: `[]`
+
 ### `PULL_REQUEST_AUTO_MERGE_METHOD`
 
 Set a merge method for auto merging.
@@ -91,10 +94,10 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
       - name: Opening pull request
         id: pull
-        uses: tretuna/sync-branches@1.4.0
+        uses: tretuna/sync-branches@1.5.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: "main"

@@ -21,7 +21,7 @@ async function run() {
     let isMerged = false;
 
     console.log(
-      `Should a pull request to ${toBranch} from ${fromBranch} be created?`
+      `Determining if ${fromBranch} should be synced to ${toBranch}...`
     );
 
     const octokit = new github.getOctokit(githubToken);

@@ -64,12 +64,12 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Opening pull request
         id: pull
-        uses: jdtx0/branch-sync@1.5.0
+        uses: jdtx0/branch-sync@1.5.1
         with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FROM_BRANCH: "main"
           TO_BRANCH: "develop"
 ```

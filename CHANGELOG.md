@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.1
+
+- Update all deps and runtime to NodeJS 20
+
 ## v1.5.0
 
 - Optimized code to search for existing PR's before opening a new one
